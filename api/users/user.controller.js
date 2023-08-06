@@ -275,6 +275,7 @@ module.exports = {
         const pwdMatch = await compare(password, user.password);
 
         if (pwdMatch && user.verification_status === "verified") {
+          req.session.user = user.employee_name;
           res.status(200).json({
             success: true,
             message: "employee",

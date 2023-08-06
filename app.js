@@ -1,14 +1,23 @@
 const express = require("express");
 require("dotenv").config();
 const app = express();
-
+const session = require("express-session");
 const cors = require("cors");
 const credentials = require("./credentials");
 
 app.use(credentials);
+
 app.use(
   cors({
     origin: "http://127.0.0.1:5501",
+  })
+);
+
+app.use(
+  session({
+    secret: "mysecretkey",
+    resave: false,
+    saveUninitialized: true,
   })
 );
 app.use(express.urlencoded({ extended: false }));
