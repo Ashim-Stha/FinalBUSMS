@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    h
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginForm = document.getElementById("login");
+
+        loginForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = loginForm.username.value;
+          const password = loginForm.password.value;
+          console.log(username, password);
+
+          const fetchApi = async () => {
+            try {
+              const response = await fetch(
+                "http://localhost:3000/api/users/signin",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username: username,
+                    password: password,
+                  }),
+                }
+              );
+
+              // if (response.ok) {
+              //   const htmlText = await response.text();
+              //   document.body.innerHTML = htmlText;
+              // }
+              // if (!response.ok) {
+              //   throw new Error("Network response was not ok");
+              // }
+              const jsonRes = await response.json();
+              console.log(jsonRes.success);
+
+              if (jsonRes.success) {
+                window.location.href = "index.html";
+
+                // title.style.display = "block";
+                // title.textContent += username;
+              } else if (jsonRes.message) {
+                invalid.style.display = "block";
+                invalid.style.color = "red";
+                invalid.textContent = "Unverified";
+              } else {
+                invalid.style.display = "block";
+                invalid.style.color = "red";
+              }
+            } catch (err) {
+              if (err) return console.log(err);
+            }
+          };
+
+          fetchApi();
+
+          //   if (username === "admin" && password === "password") {
+          //     alert("Login successful!");
+          //     // You can redirect to another page or perform other actions here
+          //   } else {
+          //     alert("Login failed. Please check your username and password.");
+          //   }
+        });
+
+        const getUser = async () => {
+          try {
+            const response = await fetch(
+              "http://localhost:3000/api/users/createLogin",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const jsonRes = await response.json();
+            const username = jsonRes.data.map((item) => item.username);
+
+            console.log(username);
+          } catch (err) {
+            if (err) return console.log(err);
+          }
+        };
+
+        // getUser();
+      });
+    </script>
+  </body>
+</html>
