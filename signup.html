@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      type="text/css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ></script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      /* Track */
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+      }
+
+      /* Handle on hover */
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+      }
+      body {
+        background-color: #900c3f;
+        font-size: 1.5rem
+      }
+      .container {
+        padding: 20px 50px;
+        min-height: 450px;
+      }
+      .fa-yoast {
+        color: #ac1f32;
+        font-weight: bold;
+      }
+      .h4 {
+        font-family: "Poppins", sans-serif;
+      }
+      a {
+        color: #333;
+      }
+      a:hover {
+        text-decoration: none;
+        color: #444;
+      }
+      .search {
+        background-color: #fdfbfc;
+      }
+      .search input {
+        width: 100px;
+        border: none;
+        outline: none;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        background-color: #fdfbfc;
+      }
+      div.btn,
+      button.btn {
+        background-color: #ac1f32;
+        color: #eee;
+      }
+      div.btn:hover,
+      button.btn:hover {
+        background-color: #ac1f32d7;
+      }
+      .navbar-light .navbar-nav .nav-link {
+        color: #333;
+      }
+      nav {
+        float: left;
+      }
+      #language {
+        float: right;
+      }
+      #language select {
+        border: none;
+        outline: none;
+      }
+      .wrapper {
+        width: 85%;
+        margin: 20px auto;
+        box-shadow: 1px 1px 30px 10px rgba(250, 250, 250, 0.8);
+      }
+      .h3 {
+        padding-top: 100px;
+        font-size: 36px;
+      }
+      label {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      input {
+        border: none;
+        outline: none;
+        border-bottom: 2px solid #ddd;
+        width: 100%;
+        padding-bottom: 10px;
+      }
+      .wrapper {
+        clear: both;
+      }
+      #country {
+        border: none;
+        outline: none;
+        width: 100%;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #ddd;
+      }
+      .wrapper .col-md-6:hover label {
+        color: #ac1f32;
+      }
+      .wrapper .col-md-6:hover input,
+      .wrapper .col-md-6:hover #country {
+        border-color: #ac1f32;
+        cursor: pointer;
+      }
+      .wrapper .col-md-6 input:focus {
+        border-color: #ac1f32;
+      }
+      .option {
+        position: relative;
+        padding-left: 30px;
+        display: block;
+        cursor: pointer;
+        color: #888;
+      }
+      .option input {
+        display: none;
+      }
+      .checkmark {
+        position: absolute;
+        top: -1px;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+      }
+      .option input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .option .checkmark:after {
+        content: "\2713";
+        width: 10px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: 200ms ease-in-out 0s;
+      }
+      .option:hover input[type="radio"] ~ .checkmark {
+        background-color: #f4f4f4;
+      }
+      .option input[type="radio"]:checked ~ .checkmark {
+        background: #ac1f32;
+        color: #fff;
+        transition: 300ms ease-in-out 0s;
+      }
+      .option input[type="radio"]:checked ~ .checkmark:after {
+        transform: translate(-50%, -50%) scale(1);
+        color: #fff;
+      }
+      @media (min-width: 992px) {
+        .navbar-expand-lg .navbar-nav .nav-link {
+          padding-right: 1.5rem;
+          padding-left: 0rem;
+        }
+        .navbar {
+          padding: 0.5rem 0rem;
+          width: 75%;
+        }
+      }
+      @media (max-width: 991px) {
+        .dropdown-menu {
+          border: none;
+        }
+        #language {
+          padding-top: 20px;
+        }
+        .navbar {
+          padding: 0.5rem 0rem;
+        }
+      }
+      @media (max-width: 767px) {
+        .search input {
+          width: 90%;
+        }
+        .search {
+          margin-bottom: 10px;
+        }
+        div.btn {
+          width: 100%;
+        }
+        .h3 {
+          font-size: 25px;
+        }
+        .brand {
+          text-align: center;
+        }
+        .container {
+          padding: 20px;
+          margin-left: 0px;
+        }
+        .navbar {
+          padding: 0.5rem 0rem;
+        }
+      }
+      @media (max-width: 374px) {
+        .h3 {
+          font-size: 21px;
+        }
+      }
+    </style>
+    <title>signup</title>
+  </head>
+  <body>
+    <div class="container bg-white mt-sm-4 mb-5">
+      <div class="d-md-flex flex-md-row">
+        <div class="brand text-uppercase h4 font-weight-bold">
+          <!-- <a href="#"></span>Bus Management System</a> -->
+        </div>
+        <!-- <div class="ml-auto px-2 pt-1 border rounded search">
+          <input type="text" placeholder="Search" /><span
+            class="fa fa-search text-muted"
+          ></span>
+        </div> -->
+        <!-- <div class="btn px-4 ml-md-3"></div> -->
+      </div>
+      <div class="d-lg-flex align-items-center">
+        <!-- <nav class="navbar navbar-expand-lg navbar-light bg-white">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button> -->
+          <!-- <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Products
+                </a>
+                <div
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <a class="dropdown-item" href="#">Storage Security</a>
+                  <a class="dropdown-item" href="#">Secure Gateway</a>
+                  <a class="dropdown-item" href="#">All Products</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Partners
+                </a>
+                <div
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <a class="dropdown-item" href="#">Security Partners</a>
+                  <a class="dropdown-item" href="#">Channel Partners</a>
+                </div>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Resources</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Company
+                </a>
+                <div
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <a class="dropdown-item" href="#">News</a>
+                  <a class="dropdown-item" href="#">About Us</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact us</a>
+              </li>
+            </ul>
+          </div>
+        </nav> -->
+        <!-- <div class="text-muted ml-auto" id="language">
+          <select name="language" id="lang" class="text-muted">
+            <option value="eng" selected>EN</option>
+            <option value="eng">ES</option>
+            <option value="eng">DE</option>
+          </select>
+        </div> -->
+      </div>
+      <div
+        class="wrapper d-flex justify-content-center flex-column px-md-5 px-1"
+      >
+        <div class="h3 text-center font-weight-bold">Register</div>
+        <form id="signup">
+        <div class="row my-4">
+          <div class="col-md-6">
+            <label for="username">Full Name</label>
+            <input type="text" id="username" placeholder="Jhon Smith" />
+          </div>
+          <div class="col-md-6 pt-md-0 pt-4">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="+977 9800000000" />
+          </div>
+          <!-- <div class="col-md-6 pt-md-0 pt-4">
+            <label for="job_title">Job Title</label> <input type="text" id="job_title" placeholder="Manager" />
+          </div> -->
+        </div>
+        <div class="row my-md-4 my-2">
+          <!-- <div class="col-md-6">
+            <label for="email">Mail</label>
+            <input type="email" id="email" placeholder="jhon19@mail.com" />
+          </div> -->
+          <div class="col-md-6 pt-md-0 pt-4">
+            <label for="address">Address</label>
+            <input type="text" placeholder="Pokhara" id="address">
+          </div>
+          
+        </div>
+        <br>
+        
+        <div class="row my-md-4 my-2">
+          
+          <div class="col-md-6">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"/>
+          </div>
+          <div class="col-md-6">
+            <label for="password">Confirm Password</label>
+            <input type="password" id="password" name="password"/>
+          </div>
+         
+          
+        </div>
+
+        <div style="text-align: center;" id="msg"></div>
+       
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn">Sign up</button>
+        </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const signupForm = document.getElementById("signup");
+        const msg=document.getElementById('msg');
+        msg.style.display='none';
+
+        signupForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const username = signupForm.username.value;
+          const email=signupForm.email.value;
+          const phone=signupForm.phone.value;
+          const address=signupForm.address.value;
+          const password = signupForm.password.value;
+          const job_title=signupForm.job_title.value;
+          console.log(username, password,email,phone,address,job_title);
+
+          const fetchApi = async () => {
+            try {
+              const response = await fetch(
+                "http://localhost:3000/api/users/registerEmployee",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    username: username,
+                    address:address,
+                    email:email,
+                    job_title:job_title,
+                    telephone_number:phone,
+                    password: password,
+                  }),
+                }
+              );
+
+              // if (response.ok) {
+              //   const htmlText = await response.text();
+              //   document.body.innerHTML = htmlText;
+              // }
+              // if (!response.ok) {
+              //   throw new Error("Network response was not ok");
+              // }
+              const jsonRes = await response.json();
+              // console.log(jsonRes.success);
+              if (jsonRes.success) {
+                msg.style.display='block';
+                msg.textContent="Registered Succesfully,pending verification"; 
+
+              } else {
+                msg.style.display='block';
+                msg.style.color='red';
+                msg.textContent="Unsuccesful registration"; 
+                //error page
+              }
+            } catch (err) {
+              if (err) return console.log(err);
+            }
+          };
+
+          fetchApi();
+
+          
+        });
+
+      });
+    </script>
+  </body>
+</html>
