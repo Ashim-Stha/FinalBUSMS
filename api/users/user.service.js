@@ -71,12 +71,11 @@ module.exports = {
 
   registerEmployee: (data, callBack) => {
     pool.query(
-      `insert into employees(employee_name,address,email,job_title,telephone_number,password,verification_status) values(?,?,?,?,?,?,?)`,
+      `insert into employees(employee_name,address,email,telephone_number,password,verification_status) values(?,?,?,?,?,?)`,
       [
         data.username,
         data.address,
         data.email,
-        data.job_title,
         data.telephone_number,
         data.password,
         "pending",

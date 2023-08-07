@@ -354,13 +354,14 @@
             <input type="text" id="username" placeholder="Jhon Smith" />
           </div>
           <div class="col-md-6 pt-md-0 pt-4">
-            <label for="job_title">Job Title</label> <input type="text" id="job_title" placeholder="Manager" />
+            <label for="email">Mail</label> 
+            <input type="email" id="email" placeholder="jhon19@mail.com" />
           </div>
         </div>
         <div class="row my-md-4 my-2">
           <div class="col-md-6">
-            <label for="email">Mail</label>
-            <input type="email" id="email" placeholder="jhon19@mail.com" />
+            <label for="address">Address</label>
+            <input type="text" id="address" placeholder="Pokhara" />
           </div>
           <div class="col-md-6 pt-md-0 pt-4">
             <label for="phone">Phone</label>
@@ -374,8 +375,8 @@
           </div>
          
           <div class="col-md-6 pt-md-0 pt-4">
-            <label for="address">Address</label>
-            <input type="text" placeholder="Pokhara" id="address">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" id="confirm">
           </div>
         </div>
 
@@ -402,8 +403,15 @@
           const phone=signupForm.phone.value;
           const address=signupForm.address.value;
           const password = signupForm.password.value;
-          const job_title=signupForm.job_title.value;
-          console.log(username, password,email,phone,address,job_title);
+          const confirm=signupForm.confirm.value;
+          console.log(username, password,email,phone,address,confirm);
+
+          if(password!==confirm){
+            msg.style.display='block';
+                msg.style.color='red';
+            msg.textContent="Passwords didnot match";
+            return;
+          }
 
           const fetchApi = async () => {
             try {
@@ -418,7 +426,6 @@
                     username: username,
                     address:address,
                     email:email,
-                    job_title:job_title,
                     telephone_number:phone,
                     password: password,
                   }),
@@ -436,6 +443,7 @@
               // console.log(jsonRes.success);
               if (jsonRes.success) {
                 msg.style.display='block';
+                msg.style.color='blue';
                 msg.textContent="Registered Succesfully,pending verification"; 
 
               } else {

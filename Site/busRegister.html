@@ -346,13 +346,9 @@
       <div
         class="wrapper d-flex justify-content-center flex-column px-md-5 px-1"
       >
-        <div class="h3 text-center font-weight-bold">Register</div>
+        <div class="h3 text-center font-weight-bold">Register Bus</div>
         <form id="signup">
         <div class="row my-4">
-          <div class="col-md-6">
-            <label for="bus_id">Bus ID</label>
-            <input type="text" id="username" placeholder="1" />
-          </div>
           <div class="col-md-6 pt-md-0 pt-4">
             <label for="reg_no">Registration No</label>
             <input type="text" id="reg_no" placeholder="97798300000043" />
@@ -392,6 +388,8 @@
           <button class="btn">Register</button>
         </div>
         </form>
+
+       <p style="text-align: center; text-decoration: underline; font-size: 18px;"><a href="index.html">Back to Home Page</a></p>  
       </div>
     </div>
     <script>
@@ -438,7 +436,7 @@
               if (jsonRes.success) {
                 msg.style.display='block';
                 msg.style.color='blue';
-                msg.textContent="Registered Succesfully,pending verification"; 
+                msg.textContent="Registered Succesfully"; 
 
               } else {
                 msg.style.display='block';
