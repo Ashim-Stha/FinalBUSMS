@@ -31,6 +31,9 @@ const {
   getBusAssignments,
 
   getPendingEmployees,
+
+  deleteEmp,
+  deleteBus,
 } = require("./user.controller");
 
 const { verifyToken } = require("../../auth/token_validation");
@@ -67,4 +70,8 @@ router.get("/employees", getEmployees);
 router.get("/busassignments", getBusAssignments);
 
 router.get("/pendingEmployees", getPendingEmployees);
+
+router.delete("/deleteEmp/:id", deleteEmp);
+router.delete("/deleteBus/:id", deleteBus);
+
 module.exports = router;

@@ -45,11 +45,13 @@
                 <!-- <th scope="col">Job Title</th> -->
                 <th scope="col">Contact</th>
                 <th scope="col">Address</th>
+                <th scope="col">Job Title</th>
+                <th scope="col">Verification Status</th>
                 <!-- <th scope="col">Bus ID</th> -->
   
               </tr>
             </thead>
-            <tbody>
+            <tbody id="employee">
               <tr scope="row">
                 <th scope="row">
                   <!-- <label class="control control--checkbox">
@@ -140,7 +142,7 @@
           <p class="bton">
       <label class="btn"><button><p class="Edit"><a href="signup.html" style="color: white;">Add</a></p></button></label>
       <label class="btn"><button><p class="Edit"><a href="ModifyEmployee.html" style="color: white;">Modify</a></p></button></label>
-      <label class="btn"><button><p class="Edit">Delete</p></button></label>
+      <label class="btn"><button id=deleteEmp><p class="Edit">Delete</p></button></label>
       </p>
         </div>
   
@@ -170,13 +172,15 @@
             </th>
             
             <!-- <th scope="col">ID</th> -->
+            <th scope="col">Bus ID
+            </th>
             <th scope="col">Registration Number</th>
             <th scope="col">Type</th>
             <th scope="col">Size</th>
             <!-- <th scope="col">Route</th> -->
           </tr>
         </thead>
-        <tbody>
+        <tbody id="bus">
           <tr scope="row">
             <th scope="row">
               <!-- <label class="control control--checkbox">
@@ -256,7 +260,7 @@
       <p class="bton">
           <label class="btn"><button><p class="Edit"><a href="Bus registration.html" style="color: white;">Add</a></p></button></label>
           <label class="btn"><button><p class="Edit"><a href="BusModify.html" style="color: white;">Modify</a></p></button></label>
-          <label class="btn"><button><p class="Edit">Delete</p></button></label>
+          <label class="btn"><button id="deleteBus"><p class="Edit">Delete</p></button></label>
           </p>
     </div>
 
@@ -296,7 +300,7 @@
             
           </tr>
         </thead>
-        <tbody>
+        <tbody id="assignments">
           <tr scope="row">
             <th scope="row">
               <!-- <label class="control control--checkbox">
@@ -398,8 +402,273 @@
     
 
     <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script> -->
     <script src="js/main.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const tableEmployee = document.querySelector("#employee");
+
+        const getUser = async () => {
+          try {
+            const response = await fetch(
+              "http://localhost:3000/api/users/employees",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const jsonRes = await response.json();
+            const employees = jsonRes.data;
+
+            // Clear existing table rows
+            tableEmployee.innerHTML = "";
+
+            // Populate table rows with data
+            employees.forEach((employee) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+          <td>
+            <label class="control control--checkbox">
+              <input type="checkbox" data-employee-id="${employee.employee_id}" />
+              <div class="control__indicator"></div>
+            </label>
+          </td>
+          <td>${employee.employee_id}</td>
+          <td>${employee.employee_name}</td>
+          <td>${employee.telephone_number}</td>
+          <td>${employee.address}</td>
+          <td>${employee.job_title}</td>
+          <td>${employee.verification_status}</td>
+        `;
+
+              tableEmployee.appendChild(row);
+            });
+          } catch (err) {
+            console.error(err);
+          }
+        };
+
+        // setInterval(() => {
+        //   getUser();
+        // }, 1000);
+
+        getUser();
+
+       const tableBus=document.querySelector('#bus');
+        const getBus=async ()=>{
+
+          try{
+            const response = await fetch(
+              "http://localhost:3000/api/users/buses",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const jsonRes = await response.json();
+            const buses = jsonRes.data;
+
+           tableBus.innerHTML="";
+
+
+           buses.forEach((bus)=>{
+            const row=document.createElement('tr')
+           row.innerHTML=`  <td>
+            <label class="control control--checkbox">
+              <input type="checkbox" data-employee-id="${bus.bus_id}" />
+              <div class="control__indicator"></div>
+            </label>
+          </td>
+          
+          <td>${bus.bus_id}</td>
+          <td>${bus.bus_registration_number}</td>
+          <td>${bus.bus_type}</td>
+          <td>${bus.bus_size}</td>
+         
+       
+           `
+      tableBus.appendChild(row)
+
+           })
+           
+          }catch(err){
+            console.log(err);
+          }
+        }
+
+        getBus();
+
+        const tableAssignments=document.querySelector('#assignments');
+        const getAssignments=async ()=>{
+
+          try{
+            const response = await fetch(
+              "http://localhost:3000/api/users/busassignments",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const jsonRes = await response.json();
+            const assigned = jsonRes.data;
+
+           tableAssignments.innerHTML="";
+
+
+           assigned.forEach((assign)=>{
+            const row=document.createElement('tr')
+           row.innerHTML=`  <td>
+            <label class="control control--checkbox">
+              <input type="checkbox" data-employee-id="${bus.bus_id}" />
+              <div class="control__indicator"></div>
+            </label>
+          </td>
+          
+          <td>${assign.assignment_id}</td>
+          <td>${assign.employee_id}</td>
+          <td>${assign.employee_name}</td>
+          <td>${assign.bus_id}</td>
+          <td>${assign.stage_id}</td>
+          <td>${assign.route_name}</td>
+          <td>${assign.garage}</td>
+         
+       
+           `
+      tableAssignments.appendChild(row)
+
+           })
+           
+          }catch(err){
+            console.log(err);
+          }
+        }
+
+        getAssignments();
+        // const verify = document.getElementById("verify");
+
+        // verify.addEventListener("click", function () {
+        //   const selectedCheckboxes = document.querySelectorAll(
+        //     'input[type="checkbox"]:checked'
+        //   );
+
+        //   const employeeIds = Array.from(selectedCheckboxes).map((checkbox) =>
+        //     checkbox.getAttribute("data-employee-id")
+        //   );
+
+        //   console.log(employeeIds);
+
+        //   employeeIds.forEach(function (id, index) {
+        //     const verifyApi = async (id) => {
+        //       try {
+        //         const response = await fetch(
+        //           `http://localhost:3000/api/users/verify/${id}`,
+        //           {
+        //             method: "PATCH",
+        //             headers: {
+        //               "Content-Type": "application/json",
+        //             },
+        //           }
+        //         );
+
+        //         const jsonRes = await response.json();
+        //         // console.log(jsonRes.success);
+
+        //         getUser();
+        //       } catch (err) {
+        //         if (err) return console.log(err);
+        //       }
+        //     };
+
+        //     verifyApi(id);
+        //   });
+        // });
+
+        const deleteEmp = document.getElementById("deleteEmp");
+
+        deleteEmp.addEventListener("click", function () {
+          const selectedCheckboxes = document.querySelectorAll(
+            'input[type="checkbox"]:checked'
+          );
+
+          const employeeIds = Array.from(selectedCheckboxes).map((checkbox) =>
+            checkbox.getAttribute("data-employee-id")
+          );
+
+          employeeIds.forEach(function (id, index) {
+            console.log(id);
+            const deleteEmployee = async (id) => {
+              try {
+                const response = await fetch(
+                  `http://localhost:3000/api/users/deleteEmp/${id}`,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+
+                const jsonRes = await response.json();
+                // console.log(jsonRes.success);
+
+                getUser();
+              } catch (err) {
+                if (err) return console.log(err);
+              }
+            };
+
+            deleteEmployee(id);
+          });
+        });
+
+        const deleteBus = document.getElementById("deleteBus");
+
+        deleteBus.addEventListener("click", function () {
+          const selectedCheckboxes = document.querySelectorAll(
+            'input[type="checkbox"]:checked'
+          );
+
+          const employeeIds = Array.from(selectedCheckboxes).map((checkbox) =>
+            checkbox.getAttribute("data-employee-id")
+          );
+
+          employeeIds.forEach(function (id, index) {
+            console.log(id);
+            const deleteBuses = async (id) => {
+              try {
+                const response = await fetch(
+                  `http://localhost:3000/api/users/deleteBus/${id}`,
+                  {
+                    method: "DELETE",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+
+                const jsonRes = await response.json();
+                // console.log(jsonRes.success);
+
+                getBus();
+              } catch (err) {
+                if (err) return console.log(err);
+              }
+            };
+
+            deleteBuses(id);
+          });
+        });
+      });
+    </script>
   </body>
 </html>

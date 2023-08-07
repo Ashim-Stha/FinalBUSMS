@@ -26,6 +26,9 @@ const {
   getBusAssignments,
 
   getPendingEmployees,
+
+  deleteEmp,
+  deleteBus,
 } = require("./user.service");
 
 const pool = require("../../config/connectSql");
@@ -457,6 +460,38 @@ module.exports = {
       }
       return res.status(200).json({
         data: results,
+      });
+    });
+  },
+
+  deleteEmp: (req, res) => {
+    const id = req.params.id;
+    deleteEmp(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+      });
+    });
+  },
+
+  deleteBus: (req, res) => {
+    const id = req.params.id;
+    deleteBus(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
       });
     });
   },

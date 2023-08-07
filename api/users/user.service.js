@@ -160,14 +160,10 @@ module.exports = {
   },
 
   getBuses: (callBack) => {
-    pool.query(
-      `select b.bus_id,b.bus_registration_number,b.bus_type,c.employee_id,r.route_name from buses as b natural join busassignments as c natural join citiesinstages natural join routestages natural join routes as r`,
-      [],
-      (err, results, fields) => {
-        if (err) return callBack(err);
-        return callBack(null, results);
-      }
-    );
+    pool.query(`select * from buses`, [], (err, results, fields) => {
+      if (err) return callBack(err);
+      return callBack(null, results);
+    });
   },
 
   getEmployees: (callBack) => {
@@ -182,10 +178,15 @@ module.exports = {
   },
 
   getBusAssignments: (callBack) => {
-    pool.query(`select * from busassignments`, [], (err, results, fields) => {
-      if (err) return callBack(err);
-      return callBack(null, results);
-    });
+    pool.query(
+      ` select assignment_id,employee_id,employee_name,bus_id,stage_id,route_name,garage from busassignments natural join employees natural join routestages
+    natural join routes natural join citiesinstages natural join cities`,
+      [],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
+      }
+    );
   },
 
   getPendingEmployees: (callBack) => {
@@ -195,6 +196,28 @@ module.exports = {
       (err, results, fields) => {
         if (err) return callBack(err);
         return callBack(null, results);
+      }
+    );
+  },
+
+  deleteEmp: (data, callBack) => {
+    pool.query(
+      `delete from employees where employee_id=(?) and verification_status=(?)`,
+      [data, "verified"],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  deleteBus: (data, callBack) => {
+    pool.query(
+      `delete from buses where bus_id=(?)`,
+      [data],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
       }
     );
   },
