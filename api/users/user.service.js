@@ -30,8 +30,8 @@ module.exports = {
   // },
   assignCities: (data, callBack) => {
     pool.query(
-      `insert into cities(city_name) values(?)`,
-      [data.city_name],
+      `insert into cities(city_name,garage) values(?,?)`,
+      [data.city_name, data.garage],
       (err, results, fields) => {
         if (err) return callBack(err);
         return callBack(null, results);
@@ -40,8 +40,8 @@ module.exports = {
   },
   assignRoutes: (data, callBack) => {
     pool.query(
-      `insert into routes(route_name) values(?)`,
-      [data.route_name],
+      `insert into routes(route_name,passengers_num) values(?,?)`,
+      [data.route_name, data.num],
       (err, results, fields) => {
         if (err) return callBack(err);
         return callBack(null, results);
@@ -217,6 +217,75 @@ module.exports = {
       (err, results, fields) => {
         if (err) return callBack(err);
         return callBack(null, results[0]);
+      }
+    );
+  },
+
+  deleteCities: (data, callBack) => {
+    pool.query(
+      `delete from cities where city_id=(?)`,
+      [data],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  deleteRoutes: (data, callBack) => {
+    pool.query(
+      `delete from routes where route_id=(?)`,
+      [data],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  deleteRouteStages: (data, callBack) => {
+    pool.query(
+      `delete from routestages where stage_id=(?)`,
+      [data],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  deleteCityStage: (data, callBack) => {
+    pool.query(
+      `delete from citiesinstages where stage_id=(?)`,
+      [data],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  updateEmployee: (data, callBack) => {
+    pool.query(
+      `UPDATE employees
+      SET employee_name = ?,
+          address = ?,
+          email = ?,
+          telephone_number = ?,
+          password = ?,
+      WHERE employee_id = ?;
+      `,
+      [
+        data.username,
+        data.address,
+        data.email,
+        data.telephone_number,
+        data.password,
+        data.employee_id,
+      ],
+      (err, results, fields) => {
+        if (err) return callBack(err);
+        return callBack(null, results);
       }
     );
   },

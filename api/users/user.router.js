@@ -34,6 +34,12 @@ const {
 
   deleteEmp,
   deleteBus,
+  deleteCities,
+  deleteRoutes,
+  deleteRouteStages,
+  deleteCityStage,
+
+  updateEmployee,
 } = require("./user.controller");
 
 const { verifyToken } = require("../../auth/token_validation");
@@ -73,5 +79,11 @@ router.get("/pendingEmployees", getPendingEmployees);
 
 router.delete("/deleteEmp/:id", deleteEmp);
 router.delete("/deleteBus/:id", deleteBus);
+router.delete("/deleteCity/:id", deleteCities);
+router.delete("/deleteRoute/:id", deleteRoutes);
+router.delete("/deleteRouteStage/:id", deleteRouteStages);
+router.delete("/deleteCityStage/:id", deleteCityStage);
+
+router.patch("/updateEmployee", updateEmployee);
 
 module.exports = router;

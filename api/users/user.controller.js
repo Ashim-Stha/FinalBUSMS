@@ -29,6 +29,12 @@ const {
 
   deleteEmp,
   deleteBus,
+  deleteCities,
+  deleteRoutes,
+  deleteRouteStages,
+  deleteCityStage,
+
+  updateEmployee,
 } = require("./user.service");
 
 const pool = require("../../config/connectSql");
@@ -38,46 +44,6 @@ const { sign } = require("jsonwebtoken");
 const { genSaltSync, hashSync, compareSync, compare } = require("bcrypt");
 
 module.exports = {
-  // createUser: (req, res) => {
-  //   const body = req.body;
-  //   const salt = genSaltSync(10);
-  //   body.password = hashSync(body.password, salt);
-
-  //   create(body, (err, results) => {
-  //     if (err) {
-  //       console.log(err);
-  //       return res.status(500).json({
-  //         success: false,
-  //         message: "Database connection error",
-  //       });
-  //     }
-
-  //     return res.status(200).json({
-  //       success: true,
-  //       data: results,
-  //     });
-  //   });
-  // },
-  // createLogin: (req, res) => {
-  //   const body = req.body;
-  //   const salt = genSaltSync(10);
-  //   body.password = hashSync(body.password, salt);
-
-  //   createLogin(body, (err, results) => {
-  //     if (err) {
-  //       console.log(err);
-  //       return res.status(500).json({
-  //         success: false,
-  //         message: "Database connection error",
-  //       });
-  //     }
-
-  //     return res.status(200).json({
-  //       success: true,
-  //       data: results,
-  //     });
-  //   });
-  // },
   assignCities: (req, res) => {
     const body = req.body;
 
@@ -320,7 +286,9 @@ module.exports = {
             success: true,
             message: "admin",
           });
-          // res.sendFile(path.join(__dirname, "..", "..", "Site", "index.html"));
+          // res
+          //   .status(200)
+          //   .sendFile(path.join(__dirname, "..", "..", "Site", "index.html"));
         } else {
           res.status(401).json({
             success: false,
@@ -492,6 +460,89 @@ module.exports = {
       }
       return res.status(200).json({
         success: true,
+      });
+    });
+  },
+
+  deleteCities: (req, res) => {
+    const id = req.params.id;
+    deleteCities(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+      });
+    });
+  },
+
+  deleteRoutes: (req, res) => {
+    const id = req.params.id;
+    deleteRoutes(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+      });
+    });
+  },
+
+  deleteRouteStages: (req, res) => {
+    const id = req.params.id;
+    deleteRouteStages(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+      });
+    });
+  },
+
+  deleteCityStage: (req, res) => {
+    const id = req.params.id;
+    deleteCityStage(id, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+      });
+    });
+  },
+
+  updateEmployee: (req, res) => {
+    const body = req.body;
+    body.password = hashSync(body.password, genSaltSync(10));
+
+    updateEmployee(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          success: false,
+          message: "Database connection error",
+        });
+      }
+      return res.status(200).json({
+        success: true,
+        data: results,
       });
     });
   },
